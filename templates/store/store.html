@@ -6,7 +6,12 @@
 <!-- ========================= SECTION PAGETOP ========================= -->
 <section class="section-pagetop bg">
     <div class="container">
-        <h2 class="title-page">Notre Store</h2>
+        {% if 'search' in request.path %}
+            <!-- search result -->
+            <h2 class="title-page">Resultat de la recherche</h2>
+        {% else %}
+            <h2 class="title-page">Notre Store</h2>
+        {% endif %}
         
     </div> <!-- container //  -->
     </section>
@@ -127,6 +132,7 @@
     </header><!-- sect-heading -->
     
     <div class="row">
+        {% if products %}
         {% for product in products %}
         <div class="col-md-4">
             <figure class="card card-product-grid">
@@ -143,23 +149,45 @@
                             <del class="price-old">{{ product.old_price }} Fcfa</del>
                         </div> <!-- price-wrap.// -->
                     </div>
-                    <a href="#" class="btn btn-block btn-primary">Ajouter au Panier </a>
+                    <a href="{{ product.get_url }}" class="btn btn-block btn-primary">Voir détail </a>
                 </figcaption>
             </figure>
         </div> <!-- col.// -->
         {% endfor %}
+        {% else %}
+        <div>
+        <h2> Aucun résultat trouvé. Veuillez essayer ! </h2>
+        </div>
+        {% endif %}
     </div> <!-- row end.// -->
     
     
     <nav class="mt-4" aria-label="Page navigation sample">
+        {% if products.has_other_pages %}
       <ul class="pagination">
-        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            {% if products.has_previous %}
+                <li class="page-item "><a class="page-link" href="?page={{products.previous_page_number}}">Précédent</a></li>
+            {% else %}
+                <li class="page-item disabled"><a class="page-link" href="#">Précédent</a></li>
+            {% endif %}
+
+            {% for i in products.paginator.page_range %}
+                {% if products.number == i %}
+                    <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+                {% else %}
+                    <li class="page-item "><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                {% endif %}
+            {% endfor %}
+
+            {% if products.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{products.next_page_number}}">Suivant</a></li>
+            {% else %}
+                <li class="page-item disabled"><a class="page-link" href="#">Suivant</a></li>
+            {% endif %}
+
       </ul>
     </nav>
+        {% endif %}
     
         </main> <!-- col.// -->
     
