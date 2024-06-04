@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'jazzmin',
     'category',
     'accounts',
     'store',
@@ -134,14 +133,27 @@ STATICFILES_DIRS = [
 MEDIA_URL  = '/media/'
 MEDIA_ROOT = BASE_DIR /'media'
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
+from django.contrib.messages import constants as messages
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+MESSAGE_TAGS = {
+    messages.ERROR: "danger",
+}
 
-JAZZMIN_SETTINGS = {
-    'site_header': "Now store",
-    'site_brand': "You order, we deliver",
-    # 'site_logo': "assets/imgs/theme/loading.gif",
-    'copyright': "now.ci",
-}  # modification de certains information concernant la page d'administration de django,
+
+
+# SMTP CONFIGURATION
+
+'''
+l'envoie de lien d'activation de de compte, Il falait creer un mot de passe d'aplication via ce lien:
+
+  https://myaccount.google.com/apppasswords?rapt=AEjHL4OfULLcNqxkZAOHKGHavYt4WkfiHyX2yS5zh2yAWSHwCedn-yft11nuECXDSg4wrwDh4BM5sfrgWOKkYHOm7I4RwVByfYX7c6In34HDQCdXA6vQhZg
+
+'''
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'yobouet.yao@gmail.com'
+EMAIL_HOST_PASSWORD = 'jjxi vrei mfqj qhlx'
+
