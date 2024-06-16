@@ -35,7 +35,7 @@
                     <div class="row">
                         <div class="item-option-select">
                             <h6>Choisir la couleur</h6>
-                            <select name="color" class="form-control" required>
+                            <select name="color" class="form-control" >
                                 <option value="" disabled selected>Select</option>
                                 {% for i in single_product.variation_set.colors %}
                               <option value="{{ i.variation_value | lower }}">{{ i.variation_value | capfirst }}</option>

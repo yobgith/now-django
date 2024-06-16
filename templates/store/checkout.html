@@ -1,5 +1,4 @@
 {% extends 'base.html'%}
-
 {% load static %}
 
 {% block content %}
@@ -13,12 +12,13 @@
     <div class="card">
         <div class="card-body">
             <h4 class="card-title mb-4">Adresse de Facturation</h4>
-            <form action="" method="POST">
+            <form action="{% url 'place_order' %}" method="POST">
                 {% csrf_token %}
                 <div class="form-row">
                     <div class="col form-group">
                         <label for="">Prénoms</label>
                         <input type="text" name="first_name" class="form-control" required>
+                        
                     </div>
                     <div class="col form-group">
                         <label for="">Nom</label>
@@ -38,11 +38,11 @@
                 <div class="form-row">
                     <div class="col form-group">
                         <label for="">Adresse Ligne 1</label>
-                        <input type="text" name="address_Ligne_1" class="form-control" required>
+                        <input type="text" name="address_line_1" class="form-control" required >
                     </div>
                     <div class="col form-group">
                         <label for="">Adresse Ligne 2</label>
-                        <input type="text" name="address_Ligne_2" class="form-control" >
+                        <input type="text" name="address_line_2" class="form-control" >
                     </div>
                 </div>
                 <div class="form-row">
@@ -96,6 +96,7 @@
                                                 {{ item.variation_category | capfirst }} : {{ item.variation_value | capfirst }} <br>
                                             {% endfor %}
                                         {% endif %}
+                                    </p>
                                 </figcaption>
                             </figure>
                         </td>
@@ -118,7 +119,7 @@
                     </table>
                 <button type="submit" name="submit" class="btn btn-primary btn-block">Passer la commande</button>
                 <a href="{% url 'store' %}" class="btn btn-light btn-block">Continuer vos Achats</a>
-                </form>
+            </form>
             </div> <!-- card-body.// -->
             </div> <!-- card.// -->
             
